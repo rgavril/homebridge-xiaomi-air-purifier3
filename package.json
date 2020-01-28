@@ -1,0 +1,31 @@
+{
+  "name": "homebridge-xiaomi-air-purifier3",
+  "version": "0.0.1",
+  "description": "Homebridge plugin for controlling Xiaomi Air Purifier 3/3H",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rgavril/homebridge-xiaomi-air-purifier3.git"
+  },
+  "author": "Razvan Gavril",
+  "license": "MIT",
+  "keywords": [
+    "homebridge-plugin",
+    "npm",
+    "node",
+    "homebridge-xiaomi-air-purifier3"
+  ],
+  "bugs": {
+    "url": "https://github.com/rgavril/homebridge-xiaomi-air-purifier3/issues"
+  },
+  "homepage": "https://github.com/rgavril/homebridge-xiaomi-air-purifier3#readme",
+  "engines": {
+    "homebridge": ">=0.2.0"
+  },
+  "dependencies": {
+    "miio": "^0.15.6"
+  },
+}
