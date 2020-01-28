@@ -1,6 +1,6 @@
 {
   "name": "homebridge-xiaomi-air-purifier3",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Homebridge plugin for controlling Xiaomi Air Purifier 3/3H",
   "main": "index.js",
   "scripts": {
@@ -27,5 +27,5 @@
   },
   "dependencies": {
     "miio": "^0.15.6"
-  },
+  }
 }
