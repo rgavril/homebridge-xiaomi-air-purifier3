@@ -27,5 +27,8 @@
   },
   "dependencies": {
     "miio": "^0.15.6"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
