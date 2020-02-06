@@ -460,7 +460,6 @@ XiaomiAirPurifier3.prototype.updateStatusActive = function() {
             this.airQualitySensorService.setCharacteristic(Characteristic.StatusActive, false);
             this.temperatureService.setCharacteristic(Characteristic.StatusActive, false);
             this.humidityService.setCharacteristic(Characteristic.StatusActive, false);
-
         }
     }  catch (e) {
         this.log('updateStatusActive Failed: ' + e);
@@ -565,7 +564,7 @@ XiaomiAirPurifier3.prototype.updateHumidity = function() {
     this.log('updateHumidity');
 
     try {
-        this.temperatureService.setCharacteristic(Characteristic.CurrentAirPurifierState, this.miotPurifier.get('humidity'));
+        this.temperatureService.setCharacteristic(Characteristic.CurrentRelativeHumidity, this.miotPurifier.get('humidity'));
     }  catch (e) {
         this.log('updateHumidity Failed: ' + e);
     }
