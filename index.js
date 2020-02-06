@@ -454,8 +454,13 @@ XiaomiAirPurifier3.prototype.updateStatusActive = function() {
     try {
         if (this.miotPurifier.get('power') == true) {
             this.airQualitySensorService.setCharacteristic(Characteristic.StatusActive, true);
+            this.temperatureService.setCharacteristic(Characteristic.StatusActive, true);
+            this.humidityService.setCharacteristic(Characteristic.StatusActive, true);
         } else {
             this.airQualitySensorService.setCharacteristic(Characteristic.StatusActive, false);
+            this.temperatureService.setCharacteristic(Characteristic.StatusActive, false);
+            this.humidityService.setCharacteristic(Characteristic.StatusActive, false);
+
         }
     }  catch (e) {
         this.log('updateStatusActive Failed: ' + e);
