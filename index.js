@@ -564,7 +564,7 @@ XiaomiAirPurifier3.prototype.updateHumidity = function() {
     this.log('updateHumidity');
 
     try {
-        this.temperatureService.setCharacteristic(Characteristic.CurrentRelativeHumidity, this.miotPurifier.get('humidity'));
+        this.humidityService.setCharacteristic(Characteristic.CurrentRelativeHumidity, this.miotPurifier.get('humidity'));
     }  catch (e) {
         this.log('updateHumidity Failed: ' + e);
     }
