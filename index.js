@@ -21,7 +21,7 @@ function XiaomiAirPurifier3(log, config) {
 
     this.miotPurifier = new MIoTAirPurifier(config['did'], config['token'], config['ip']);
 
-    if(isArray(config['pm25_breakpoints']) && config['pm25_breakpoints'].length >= 4) {
+    if(Array.isArray(config['pm25_breakpoints']) && config['pm25_breakpoints'].length >= 4) {
         this.pm25_breakpoints = config['pm25_breakpoints'];
     }
 
