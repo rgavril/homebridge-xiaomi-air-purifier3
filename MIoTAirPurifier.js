@@ -14,7 +14,7 @@ class MIoTAirPurifier extends MIoTDevice {
             'filter_level' : [ 4,  3], // Filter Live Level : 0-100(Percentage)
             'lock'         : [ 7,  1], // Physical Control Locked : bool
             'speed_write'  : [10,  8], // motor1-speed : 0-3000 : 0-3000 1
-            'speed_read'   : [10,  9]  // motor1-speed : 0-3000 : 0-3000 1
+            'speed_read'   : [10,  9], // motor1-speed : 0-3000 : 0-3000 1
             'aqi_heartbeat': [13,  9]  // aqi-updata-heartbeat: 0 - 65534
         }
 
