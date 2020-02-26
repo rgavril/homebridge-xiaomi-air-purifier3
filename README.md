@@ -17,7 +17,7 @@ Homebridge plugin for controlling Xiaomi Air Purifier 3/3H
 2. Install homebridge-xiaomi-air-purifier3 using: npm install -g homebridge-xiaomi-air-purifier3
 
 # Configuration
-Sample configuration:
+Minimal configuration:
 ```
 "accessories": [
         {
@@ -29,12 +29,30 @@ Sample configuration:
         }
 ]
 ```
+
+Full Configuration
+```
+"accessories": [
+        {
+            "accessory": "XiaomiAirPurifier3",
+            "name": "Xiaomi Air Purifier",
+            "did": "XXXXXXXXX",
+            "ip": "10.0.X.X",
+            "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            pm25_breakpoints: [35, 75, 115, 150]
+        }
+]
+```
+
 Fields:
 * "accessory": Must always be "XiaomiAirPurifier3" (required)
 * "name": Name that will be displayed in your home app (required)
 * "did": The device id of the air purifier (required)
 * "ip": Ip address of the air purifier (required)
 * "token": The device token of the air purifier (required)
+* "pm25_breakpoints": PM2.5 limits for air quality sensor levels [EXCELENT-GOOD, GOOD-FAIR, FAIR-INFERIOR, INFERIOR-POOR] (optional)
+
+
 
 # How to find the did (device id) and ip address
 
