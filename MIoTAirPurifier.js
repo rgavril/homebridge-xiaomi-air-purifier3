@@ -15,11 +15,16 @@ class MIoTAirPurifier extends MIoTDevice {
             'lock'         : [ 7,  1], // Physical Control Locked : bool
             'speed_write'  : [10,  8], // motor1-speed : 0-3000 : 0-3000 1
             'speed_read'   : [10,  9]  // motor1-speed : 0-3000 : 0-3000 1
+            'aqi_heartbeat': [13,  9]  // aqi-updata-heartbeat: 0 - 65534
         }
 
         for (var propertyName in this.dictionary) {
             this.trackProperty(this.dictionary[propertyName][0], this.dictionary[propertyName][1]);
         };
+
+        this.onChange('aqi_heartbeat', value => {
+            if (value <= 0) { this.set('aqi_heartbeat', 60); }
+        });
     }
 
     get(propertyName) {
