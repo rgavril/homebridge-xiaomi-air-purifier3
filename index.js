@@ -17,7 +17,7 @@ function XiaomiAirPurifier3(log, config) {
     var that = this;
     this.log = log;
     this.services = [];
-    this.pm25_breakpoints = [35, 75, 115, 150];
+    this.pm25_breakpoints = [5, 12, 35, 55];
 
     this.miotPurifier = new MIoTAirPurifier(config['did'], config['token'], config['ip']);
 
