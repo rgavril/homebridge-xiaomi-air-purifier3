@@ -6,17 +6,23 @@ Homebridge plugin for controlling Xiaomi Air Purifier 3/3H
 * Turning device On/Off
 * Change mode to _Manual_ or _Automatic_
 * Fine tune the _Fan Speed_ using 100 step increments
-* Display the current fan speed even in Automatic mode
+* Display the current Fan Speed even in Automatic mode
 * Toggle _Child Lock_ switch to enable/disable manual controls on the device
 * Expose _Air Quality_ sensor with current PM2.5 value
-* Configurable PM2.5 AQI breakpoints
-* Implement Filter Life and Filter Change notification. 
-* Display the device as Idle when the fan speed is set the lowest available
-* Automatically updates device status in HomeKit when the device is controlled from outside HomeKit
+* Configurable PM2.5 AQI Breakpoints
+* Expose *Filter Life Level* and *Filter Change Indication* to HomeKit
+* Display device as *Idle* when the fan speed is the lowest possible
+* Automatically show updates in HomeKit when the device is controlled from outside HomeKit
 
 # Installation
-1. Install homebridge using: npm install -g homebridge
-2. Install homebridge-xiaomi-air-purifier3 using: npm install -g homebridge-xiaomi-air-purifier3
+1. Install *homebridge*:
+	```
+	npm install -g homebridge
+	```
+2. Install *homebridge-xiaomi-air-purifier3*: 
+	```
+	npm install -g homebridge-xiaomi-air-purifier3
+	```
 
 # Configuration
 
