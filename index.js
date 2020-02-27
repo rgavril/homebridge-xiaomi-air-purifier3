@@ -17,8 +17,13 @@ function XiaomiAirPurifier3(log, config) {
     var that = this;
     this.log = log;
     this.services = [];
+    this.pm25_breakpoints = [5, 12, 35, 55];
 
     this.miotPurifier = new MIoTAirPurifier(config['did'], config['token'], config['ip']);
+
+    if(Array.isArray(config['pm25_breakpoints']) && config['pm25_breakpoints'].length >= 4) {
+        this.pm25_breakpoints = config['pm25_breakpoints'];
+    }
 
     this.miotPurifier.onChange('power', value => {
         that.updateActive();
@@ -474,12 +479,11 @@ XiaomiAirPurifier3.prototype.getAirQuality = function(callback) {
         var pm25    = this.miotPurifier.get('pm25');
         var quality = Characteristic.AirQuality.UNKNOWN;
 
-        if      (pm25 <=  35) { quality = Characteristic.AirQuality.EXCELLENT; }
-        else if (pm25 <=  75) { quality = Characteristic.AirQuality.GOOD;      }
-        else if (pm25 <= 115) { quality = Characteristic.AirQuality.FAIR;      }
-        else if (pm25 <= 150) { quality = Characteristic.AirQuality.INFERIOR;  }
-        else if (pm25 <= 250) { quality = Characteristic.AirQuality.POOR;      }
-        else                  { quality = Characteristic.AirQuality.POOR;      }
+        if      (pm25 <= this.pm25_breakpoints[0]) { quality = Characteristic.AirQuality.EXCELLENT; }
+        else if (pm25 <= this.pm25_breakpoints[1]) { quality = Characteristic.AirQuality.GOOD;      }
+        else if (pm25 <= this.pm25_breakpoints[2]) { quality = Characteristic.AirQuality.FAIR;      }
+        else if (pm25 <= this.pm25_breakpoints[3]) { quality = Characteristic.AirQuality.INFERIOR;  }
+        else                                       { quality = Characteristic.AirQuality.POOR;      }
 
         return callback(null, quality);
     } catch(e) {
@@ -495,12 +499,11 @@ XiaomiAirPurifier3.prototype.updateAirQuality = function() {
         var pm25    = this.miotPurifier.get('pm25');
         var quality = Characteristic.AirQuality.UNKNOWN;
 
-        if      (pm25 <=  35) { quality = Characteristic.AirQuality.EXCELLENT; }
-        else if (pm25 <=  75) { quality = Characteristic.AirQuality.GOOD;      }
-        else if (pm25 <= 115) { quality = Characteristic.AirQuality.FAIR;      }
-        else if (pm25 <= 150) { quality = Characteristic.AirQuality.INFERIOR;  }
-        else if (pm25 <= 250) { quality = Characteristic.AirQuality.POOR;      }
-        else                  { quality = Characteristic.AirQuality.POOR;      }
+        if      (pm25 <= this.pm25_breakpoints[0]) { quality = Characteristic.AirQuality.EXCELLENT; }
+        else if (pm25 <= this.pm25_breakpoints[1]) { quality = Characteristic.AirQuality.GOOD;      }
+        else if (pm25 <= this.pm25_breakpoints[2]) { quality = Characteristic.AirQuality.FAIR;      }
+        else if (pm25 <= this.pm25_breakpoints[3]) { quality = Characteristic.AirQuality.INFERIOR;  }
+        else                                       { quality = Characteristic.AirQuality.POOR;      }
 
         this.airQualitySensorService.setCharacteristic(Characteristic.AirQuality, quality);
     } catch(e) {
