@@ -10,9 +10,9 @@ Homebridge plugin for controlling Xiaomi Air Purifier 3/3H
 * Toggle _Child Lock_ switch to enable/disable manual controls on the device
 * Expose _Air Quality_ sensor with current PM2.5 value
 * Configurable PM2.5 AQI breakpoints
-* Implement Filter Life and Filter Change notification. Note that default Home app doesn't display this info(yet?) even if it's a standard HomeKit service but you can visualise them in alternative Home apps like [EveHome](https://www.evehome.com/en/eve-app)
-* Display the device as Idle when the fan speed is set the lowest available (example: when in night mode or automatic mode with low pm2.5)
-* Automatically updates device status in HomeKit when the device is controlled from outside HomeKit (manual controls or xiaomi home app)
+* Implement Filter Life and Filter Change notification. 
+* Display the device as Idle when the fan speed is set the lowest available
+* Automatically updates device status in HomeKit when the device is controlled from outside HomeKit
 
 # Installation
 1. Install homebridge using: npm install -g homebridge
