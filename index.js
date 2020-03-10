@@ -103,14 +103,10 @@ XiaomiAirPurifier3.prototype.getServices = function() {
         .getCharacteristic(Characteristic.LockPhysicalControls)
         .on('get', this.getLockPhysicalControls.bind(this))
         .on('set', this.setLockPhysicalControls.bind(this));
-
-    // Filter Service
-    this.filterMaintenanceService = new Service.FilterMaintenance(this.name);
-
-    this.filterMaintenanceService.
+    this.airPurifierService.
         getCharacteristic(Characteristic.FilterChangeIndication)
         .on('get', this.getFilterChangeIndication.bind(this));
-    this.filterMaintenanceService.
+    this.airPurifierService.
         getCharacteristic(Characteristic.FilterLifeLevel)
         .on('get', this.getFilterLifeLevel.bind(this));
 
@@ -150,7 +146,6 @@ XiaomiAirPurifier3.prototype.getServices = function() {
     // Publish Services
     this.services.push(this.informationService);
     this.services.push(this.airPurifierService);
-    this.services.push(this.filterMaintenanceService);
     this.services.push(this.airQualitySensorService);
     this.services.push(this.temperatureSensorService);
     this.services.push(this.humiditySensorService);
@@ -413,9 +408,9 @@ XiaomiAirPurifier3.prototype.updateFilterChangeIndication = function() {
 
     try {
         if (this.miotPurifier.get('filter_level') <= 15) {
-            this.filterMaintenanceService.setCharacteristic(Characteristic.FilterChangeIndication, Characteristic.FilterChangeIndication.CHANGE_FILTER);
+            this.airPurifierService.setCharacteristic(Characteristic.FilterChangeIndication, Characteristic.FilterChangeIndication.CHANGE_FILTER);
         } else {
-            this.filterMaintenanceService.setCharacteristic(Characteristic.FilterChangeIndication, Characteristic.FilterChangeIndication.FILTER_OK);
+            this.airPurifierService.setCharacteristic(Characteristic.FilterChangeIndication, Characteristic.FilterChangeIndication.FILTER_OK);
         }
     } catch(e) {
         this.log('updateFilterChangeIndication Failed: ' + e);
@@ -437,7 +432,7 @@ XiaomiAirPurifier3.prototype.updateFilterLifeLevel = function() {
     this.log("updateFilterLifeLevel");
 
     try {
-        this.filterMaintenanceService.setCharacteristic(Characteristic.FilterLifeLevel, this.miotPurifier.get('filter_level'));
+        this.airPurifierService.setCharacteristic(Characteristic.FilterLifeLevel, this.miotPurifier.get('filter_level'));
     } catch(e) {
         this.log('updateFilterLifeLevel Failed: ' + e);
     }
