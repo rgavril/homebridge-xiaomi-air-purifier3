@@ -7,6 +7,7 @@ class MIoTDevice {
         this.token = token;
         this.properties = [];
         this.onChangeCallbacks  = [];
+        this.isResponding = false;
 
         this.connect();
     }
@@ -36,6 +37,10 @@ class MIoTDevice {
     }
 
     getProperty(siid, piid) {
+        if (! this.isResponding) {
+            throw 'MIOTDevice is not responding';
+        }
+
         if (! this.isPropertyTracked(siid, piid)) {
             throw 'MIOTDevice property is not tracked.';
         }
@@ -57,6 +62,9 @@ class MIoTDevice {
     }
 
     setProperty(siid, piid, targetValue) {
+        if (! this.isResponding) {
+            throw 'MIOTDevice is not responding';
+        }
         var value = null;
 
         for (var i = 0; i < this.properties.length; i++) {
@@ -102,13 +110,15 @@ class MIoTDevice {
 
     pollProperties(){
         if (! this.device) {
-            throw 'MIOTDevice is not yet available';
+            throw 'MIOTDevice is not connected';
         }
 
         var that = this;
+
         this.device
             .miioCall('get_properties', this.properties)
             .then(response => {
+                this.isResponding = true;
                 var changedIndexes = [];
 
                 response.forEach(responseProperty => {
@@ -130,7 +140,8 @@ class MIoTDevice {
                 });
             })
             .catch(error => {
-                throw 'MIOTDevice not responding : ' + error;
+                console.log('MIoT Device (did: '+that.did+') poll error : ' + error);
+                this.isResponding = false;
             });
     }
 

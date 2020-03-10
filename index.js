@@ -63,8 +63,12 @@ function XiaomiAirPurifier3(log, config) {
     });
 
     setInterval(function() {
-        that.log('Polling properties')
-        that.miotPurifier.pollProperties();
+        try {
+            that.log('Polling properties')
+            that.miotPurifier.pollProperties();
+        } catch (e) {
+            that.log(e);
+        }
     }, 30000);
 }
 
