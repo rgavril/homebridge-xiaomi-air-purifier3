@@ -18,6 +18,7 @@ function XiaomiAirPurifier3(log, config) {
     this.log = log;
     this.services = [];
     this.pm25_breakpoints = [5, 12, 35, 55];
+    this.did = config['did'];
 
     this.miotPurifier = new MIoTAirPurifier(config['did'], config['token'], config['ip']);
 
@@ -77,9 +78,11 @@ XiaomiAirPurifier3.prototype.getServices = function() {
     this.informationService = new Service.AccessoryInformation();
 
     this.informationService
-          .setCharacteristic(Characteristic.Name        , this.name)
-          .setCharacteristic(Characteristic.Manufacturer, 'Xiaomi')
-          .setCharacteristic(Characteristic.Model       , 'Mi Air Purifier 3/3H')
+          .setCharacteristic(Characteristic.Name            , this.name)
+          .setCharacteristic(Characteristic.Manufacturer    , 'Xiaomi')
+          .setCharacteristic(Characteristic.Model           , 'Mi Air Purifier 3/3H')
+          .setCharacteristic(Characteristic.SerialNumber    , this.did)
+          .setCharacteristic(Characteristic.FirmwareRevision, '1.3')
 
     // Air Purifier Service
     this.airPurifierService = new Service.AirPurifier(this.name);
