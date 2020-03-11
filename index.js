@@ -82,7 +82,7 @@ XiaomiAirPurifier3.prototype.getServices = function() {
           .setCharacteristic(Characteristic.Manufacturer    , 'Xiaomi')
           .setCharacteristic(Characteristic.Model           , 'Mi Air Purifier 3/3H')
           .setCharacteristic(Characteristic.SerialNumber    , this.did)
-          .setCharacteristic(Characteristic.FirmwareRevision, '1.3')
+          .setCharacteristic(Characteristic.FirmwareRevision, '1.3.0')
 
     // Air Purifier Service
     this.airPurifierService = new Service.AirPurifier(this.name);
