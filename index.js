@@ -63,6 +63,10 @@ function XiaomiAirPurifier3(log, config) {
         that.updateHumidity();
     });
 
+    this.miotPurifier.onChange('display_brightness', value => {
+        that.updateLedDisplayState();
+    });
+
     setInterval(function() {
         try {
             that.log('Polling properties')
@@ -146,12 +150,20 @@ XiaomiAirPurifier3.prototype.getServices = function() {
         .getCharacteristic(Characteristic.CurrentRelativeHumidity)
         .on('get', this.getHumidity.bind(this));
 
+    // LED Display
+    this.lightBulbService = new Service.Lightbulb(this.name);
+    this.lightBulbService
+        .getCharacteristic(Characteristic.On)
+        .on('get', this.getLedDisplayState.bind(this))
+        .on('set', this.setLedDisplayState.bind(this));
+
     // Publish Services
     this.services.push(this.informationService);
     this.services.push(this.airPurifierService);
     this.services.push(this.airQualitySensorService);
     this.services.push(this.temperatureSensorService);
     this.services.push(this.humiditySensorService);
+    this.services.push(this.lightBulbService);
 
     return this.services;
 }
@@ -573,5 +585,44 @@ XiaomiAirPurifier3.prototype.updateHumidity = function() {
         this.humiditySensorService.setCharacteristic(Characteristic.CurrentRelativeHumidity, this.miotPurifier.get('humidity'));
     }  catch (e) {
         this.log('updateHumidity Failed: ' + e);
+    }
+}
+
+XiaomiAirPurifier3.prototype.getLedDisplayState = function(callback) {
+    this.log('getLedDisplayState');
+
+    try {
+        return callback(null, this.miotPurifier.get('display_brightness'));
+    } catch(e) {
+        this.log('getLedDisplayState Failed: ' + e);
+    }
+}
+
+XiaomiAirPurifier3.prototype.updateLedDisplayState = function() {
+    this.log('updateLedDisplayState');
+
+    try {
+        this.lightBulbService.setCharacteristic(Characteristic.StatusActive, this.miotPurifier.get('display_brightness') == 0);
+    }  catch (e) {
+        this.log('updateLedDisplayState Failed: ' + e);
+    }
+}
+
+XiaomiAirPurifier3.prototype.setLedDisplayState = function(targetState, callback, context) {
+    this.log('setLedDisplayState ' + targetState + ' ' + context);
+
+    if (context === 'fromOutsideHomekit') { return callback(null) }
+
+    try {
+        if (targetState) {
+            this.miotPurifier.set('display_brightness', 0);
+        } else {
+            this.miotPurifier.set('display_brightness', 2);
+        }
+
+        callback(null);
+    } catch (e) {
+        this.log('setLedDisplayState Failed : ' + e);
+        callback(e);
     }
 }
